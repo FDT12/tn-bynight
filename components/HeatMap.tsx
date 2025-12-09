@@ -71,14 +71,20 @@ export default function LeafletMap() {
   };
 
   const simulateData = () => {
-    setMonth("April 2024");
+    const today = new Date().toLocaleString("en-US", {month: "long",year: "numeric"
+  });
+    setMonth(today);
     setSimulated(true);
   };
 
   const resetData = () => {
-    setMonth("March 2024");
-    setSimulated(false);
-  };
+  const today = new Date().toLocaleString("en-US", {month: "long",year: "numeric"
+  });
+
+  setMonth(today);
+  setSimulated(false);
+};
+
 
   const selectedRegionData = selectedRegion 
     ? tunisiaRegionsGeoJSON.features.find(f => f.properties.name === selectedRegion)?.properties
@@ -153,7 +159,7 @@ export default function LeafletMap() {
           </div>
 
           {/* Selected Region Info */}
-          {selectedRegion && selectedRegionData && (
+          {selectedRegion && selectedRegionData ? (
             <Card className="mb-6">
               <CardContent className="pt-6">
                 <div className="flex justify-between items-start mb-4">
@@ -164,12 +170,14 @@ export default function LeafletMap() {
                   <div className="flex items-center gap-2">
                     <div 
                       className="w-8 h-8 rounded" 
-                      style={{ backgroundColor: getColor(selectedRegionData.score) }}
+                     style={{ backgroundColor: getColor(selectedRegionData?.score ?? 0) }}
+
                     ></div>
                     <span className="font-semibold">
-                      {selectedRegionData.score >= 7 ? 'Very High Activity' :
-                       selectedRegionData.score >= 4 ? 'High Activity' :
-                       selectedRegionData.score >= 1 ? 'Medium Activity' : 'Low Activity'}
+                      {(selectedRegionData?.score ?? 0) >= 7 ? 'Very High Activity' :
+ (selectedRegionData?.score ?? 0) >= 4 ? 'High Activity' :
+ (selectedRegionData?.score ?? 0) >= 1 ? 'Medium Activity' : 'Low Activity'}
+
                     </span>
                   </div>
                 </div>
@@ -177,7 +185,7 @@ export default function LeafletMap() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-2">
                     <p className="text-sm text-gray-600">Activity Score</p>
-                    <p className="text-3xl font-bold" style={{ color: getColor(selectedRegionData.score) }}>
+                    <p className="text-3xl font-bold" style={{ color: getColor(selectedRegionData?.score ?? 0) }}>
                       {selectedRegionData.score}
                     </p>
                   </div>
@@ -220,7 +228,7 @@ export default function LeafletMap() {
                 </div>
               </CardContent>
             </Card>
-          )}
+          ) : null}
 
           {/* How It Works */}
           <Card>
