@@ -1,7 +1,5 @@
-import Image from "next/image";
-import HeatMapClient from "../components/HeatMap";
-
-
+// app/page.tsx
+import HeatMapClient from "../components/HeatMapClient";
 
 export default function Home() {
   return <HeatMapClient />;

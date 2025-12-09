@@ -1,9 +1,9 @@
 // components/HeatMapClient.tsx
-"use client"; // <- important, makes this a Client Component
+"use client"; // <- very important!
 
 import dynamic from "next/dynamic";
 
-// Dynamically import HeatMap, client-only
+// Dynamically import the HeatMap component only on the client
 const HeatMap = dynamic(() => import("./HeatMap"), { ssr: false });
 
 export default function HeatMapClient() {
